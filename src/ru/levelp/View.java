@@ -20,8 +20,12 @@ public class View extends JFrame { // класс - это окно
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JButton button = (JButton) e.getSource();
-                    model.operate(display.getText(), button.getText());
-                    if (button.getText().equals("+")) display.setText(" ");
+                        model.operate(display.getText(), button.getText());
+                            if ((button.getText().equals("+")) ||
+                                    (button.getText().equals("-")) ||
+                                    (button.getText().equals("*")) ||
+                                    (button.getText().equals("/")))
+                                display.setText(" ");
                 }
             };
     // анонимный объект создаем в ссылку типа AL
@@ -54,7 +58,10 @@ public class View extends JFrame { // класс - это окно
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JButton button = (JButton) e.getSource();
-                    display.setText(display.getText() + button.getText());
+                    if ( (model.getOperation() == null) ||
+                            (model.getOperation().equals("=")))
+                        display.setText(button.getText());
+                    else display.setText(display.getText() + button.getText());
                 }
             });
         }
@@ -79,6 +86,9 @@ public class View extends JFrame { // класс - это окно
         JButton resultBtn = new JButton("=");
 
         addBtn.addActionListener(arithmeticBtnListener);
+        subBtn.addActionListener(arithmeticBtnListener);
+        mulBtn.addActionListener(arithmeticBtnListener);
+        divBtn.addActionListener(arithmeticBtnListener);
         resultBtn.addActionListener(arithmeticBtnListener);
 
         arithmeticPanel.add(addBtn);

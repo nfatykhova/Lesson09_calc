@@ -10,6 +10,15 @@ public class CalcModel { // model - часть классов, отвечающ�
 
     private View view;
     private String operation;
+
+    public void popOperands() {
+        operands.pop();
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
     private Stack<Double> operands; // числа будем сохранять в стек
 
     public CalcModel() {
@@ -19,21 +28,35 @@ public class CalcModel { // model - часть классов, отвечающ�
     public void operate(String operand1, String operation) {
 
         double op1 = Double.parseDouble(operand1); // преобразуем operand1 в переменную double
-        this.operation = operation; // так мы можем сохранять каждую последнюю операцию
+        String lastOperation;
+//        if (operation.equals("=")) {
+            lastOperation = this.operation;
+            this.operation = operation; // так мы можем сохранять каждую последнюю операцию
+//        } else {
+//            this.operation = operation;
+//            lastOperation = operation;
+//        }
+
         operands.push(op1);
 
-            if (operation.equals("=")) {
-                if (operands.size() > 1) {
-                    double result = operands.pop() + operands.pop(); // метод
-                    operands.push(result);
-                    view.setResult(result);
-                } else {
-                    this.operation = operation;
-                    view.setResult(0);
-                }
-            }
-        }
+        double result = 0;
+        if (operands.size() == 2) { // ) && (operation != null)
+            String tmpOper = operation;
+            if ( tmpOper.equals("=") )
+                tmpOper = lastOperation;
+            if (tmpOper.equals("+")) result = operands.pop() + operands.pop();
+            if (tmpOper.equals("-")) result = -operands.pop() + operands.pop();
+            if (tmpOper.equals("*")) result = operands.pop() * operands.pop();
+            if (tmpOper.equals("/")) result = 1 / (operands.pop() / operands.pop());
+            operands.push(result);
 
+        }
+            if (operation.equals("=")) {
+                view.setResult(result);
+                operands.pop();
+            }
+
+    }
 
     public void setView(View view) {
         this.view = view;
