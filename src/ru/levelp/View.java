@@ -15,7 +15,7 @@ public class View extends JFrame { // класс - это окно
 
     private CalcModel model; // ссылка - делает доступными методы другого класса
 
-    private ActionListener arithmeticBtnListener =
+    private ActionListener arithmeticBtnListener =      // анонимный объект создаем в ссылку типа AL
             new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -28,7 +28,7 @@ public class View extends JFrame { // класс - это окно
                                 display.setText(" ");
                 }
             };
-    // анонимный объект создаем в ссылку типа AL
+
 
     public View(CalcModel model) {
 
@@ -58,10 +58,12 @@ public class View extends JFrame { // класс - это окно
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JButton button = (JButton) e.getSource();
-                    if ( (model.getOperation() == null) ||
-                            (model.getOperation().equals("=")))
+                    if ( ( (model.getOperation() == null) && (display.getText().equals("0")) ) ||
+                            (  (model.getOperation()  != null) &&
+                            (model.getOperation().equals("=")) ) ) // если на дисплее 0 (первый запуск) ИЛИ операция != нулю И равна =
                         display.setText(button.getText());
-                    else display.setText(display.getText() + button.getText());
+                    else
+                    display.setText(display.getText() + button.getText());
                 }
             });
         }
@@ -84,6 +86,27 @@ public class View extends JFrame { // класс - это окно
         JButton mulBtn = new JButton("*");
         JButton divBtn = new JButton("/");
         JButton resultBtn = new JButton("=");
+
+        JButton dotBtn = new JButton(".");
+        JButton negateBtn = new JButton("+/-");
+
+        dotBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        negateBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Double num = Double.parseDouble(display.getText());
+                model.negate(num);
+            }
+        });
+
+        numPanel.add(dotBtn);
+        numPanel.add(negateBtn);
 
         addBtn.addActionListener(arithmeticBtnListener);
         subBtn.addActionListener(arithmeticBtnListener);

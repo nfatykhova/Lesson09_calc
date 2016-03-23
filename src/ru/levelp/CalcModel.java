@@ -10,15 +10,6 @@ public class CalcModel { // model - часть классов, отвечающ�
 
     private View view;
     private String operation;
-
-    public void popOperands() {
-        operands.pop();
-    }
-
-    public String getOperation() {
-        return operation;
-    }
-
     private Stack<Double> operands; // числа будем сохранять в стек
 
     public CalcModel() {
@@ -29,13 +20,8 @@ public class CalcModel { // model - часть классов, отвечающ�
 
         double op1 = Double.parseDouble(operand1); // преобразуем operand1 в переменную double
         String lastOperation;
-//        if (operation.equals("=")) {
-            lastOperation = this.operation;
-            this.operation = operation; // так мы можем сохранять каждую последнюю операцию
-//        } else {
-//            this.operation = operation;
-//            lastOperation = operation;
-//        }
+        lastOperation = this.operation;
+        this.operation = operation; // так мы можем сохранять каждую последнюю операцию
 
         operands.push(op1);
 
@@ -58,7 +44,17 @@ public class CalcModel { // model - часть классов, отвечающ�
 
     }
 
+    public void negate(double num) {
+        double negateNum = -num;
+        view.setResult(negateNum);
+    }
+
     public void setView(View view) {
         this.view = view;
     }
+
+    public String getOperation() {
+        return operation;
+    }
 }
+
