@@ -59,11 +59,14 @@ public class View extends JFrame { // класс - это окно
                 public void actionPerformed(ActionEvent e) {
                     JButton button = (JButton) e.getSource();
                     if ( ( (model.getOperation() == null) && (display.getText().equals("0")) ) ||
-                            (  (model.getOperation()  != null) &&
-                            (model.getOperation().equals("=")) ) ) // если на дисплее 0 (первый запуск) ИЛИ операция != нулю И равна =
+                         ( (model.getOperation() != null) && (model.getOperation().equals("="))
+                         && (model.isResultFlag() == true)) ) { // если на дисплее 0 (первый запуск) ИЛИ операция != нулю И равна =
+                        //  (model.getOperation() == null) )
                         display.setText(button.getText());
-                    else
-                    display.setText(display.getText() + button.getText());
+                        model.setResultFlag(false);
+                    } else {
+                        display.setText(display.getText() + button.getText());
+                    }
                 }
             });
         }
@@ -93,7 +96,10 @@ public class View extends JFrame { // класс - это окно
         dotBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (!display.getText().contains(".") )
+                    display.setText(display.getText() + ".");
+                if (display.getText().trim().isEmpty() )
+                    display.setText("0.");
             }
         });
 

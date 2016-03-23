@@ -11,6 +11,7 @@ public class CalcModel { // model - часть классов, отвечающ�
     private View view;
     private String operation;
     private Stack<Double> operands; // числа будем сохранять в стек
+    private boolean resultFlag;
 
     public CalcModel() {
         operands = new Stack<>(); // инициализировать правильнее в конструкторе
@@ -28,19 +29,19 @@ public class CalcModel { // model - часть классов, отвечающ�
         double result = 0;
         if (operands.size() == 2) { // ) && (operation != null)
             String tmpOper = operation;
-            if ( tmpOper.equals("=") )
+            if (tmpOper.equals("="))
                 tmpOper = lastOperation;
             if (tmpOper.equals("+")) result = operands.pop() + operands.pop();
             if (tmpOper.equals("-")) result = -operands.pop() + operands.pop();
             if (tmpOper.equals("*")) result = operands.pop() * operands.pop();
             if (tmpOper.equals("/")) result = 1 / (operands.pop() / operands.pop());
-            operands.push(result);
+
+            if (!operation.equals("=")) operands.push(result);
 
         }
-            if (operation.equals("=")) {
-                view.setResult(result);
-                operands.pop();
-            }
+
+            view.setResult(result);
+            resultFlag = true;
 
     }
 
@@ -55,6 +56,14 @@ public class CalcModel { // model - часть классов, отвечающ�
 
     public String getOperation() {
         return operation;
+    }
+
+    public boolean isResultFlag() {
+        return resultFlag;
+    }
+
+    public void setResultFlag(boolean resultFlag) {
+        this.resultFlag = resultFlag;
     }
 }
 
