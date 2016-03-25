@@ -36,18 +36,23 @@ public class CalcModel { // model - часть классов, отвечающ�
             if (tmpOper.equals("*")) result = operands.pop() * operands.pop();
             if (tmpOper.equals("/")) result = 1 / (operands.pop() / operands.pop());
 
+            if (tmpOper.equals("^")) {
+                double a = operands.pop();
+                double b = operands.pop();
+                result = Math.pow(b, a); // число, степень
+            }
+
             if (!operation.equals("=")) operands.push(result);
-
         }
-
             view.setResult(result);
             resultFlag = true;
-
     }
 
     public void negate(double num) {
-        double negateNum = -num;
-        view.setResult(negateNum);
+        if (num != 0) {
+            double negateNum = -num;
+            view.setResult(negateNum);
+        }
     }
 
     public void setView(View view) {
