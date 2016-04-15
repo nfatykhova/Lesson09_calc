@@ -12,13 +12,15 @@ public class EngineerClickListeners implements ActionListener {
     private View view;
     private CalcModel model;
 
-    public EngineerClickListeners(CalcModel model) {
-        this.model = model;
-    }
+    public EngineerClickListeners(CalcModel model, View view) {
 
-    public EngineerClickListeners(View view) {
+        this.model = model;
         this.view = view;
     }
+
+  //  public EngineerClickListeners(View view) {
+//        this.view = view;
+//    }
 
     // sin, cos, tan, atan, ln, lg, log, x^2, sqrt, ^
 

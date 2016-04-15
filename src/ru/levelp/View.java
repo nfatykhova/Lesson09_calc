@@ -64,11 +64,17 @@ public class View extends JFrame { // класс - это окно
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JButton button = (JButton) e.getSource();
-                    if ( ( (model.getOperation() == null) && (display.getText().equals("0")) ) ||
-                         ( (model.getOperation() != null) && (model.getOperation().equals("="))
-                         && (model.isResultFlag() == true)) ) { // если на дисплее 0 (первый запуск) ИЛИ операция != нулю И равна =
+
+                    if ( ( (model.getOperation() != null) && (model.getOperation().equals("="))
+                         || (model.isResultFlag() == true)) ) {
                         display.setText(button.getText());
                         model.setResultFlag(false);
+
+//                    if ( ( (model.getOperation() == null) && (display.getText().equals("0")) ) ||
+//                         ( (model.getOperation() != null) && (model.getOperation().equals("="))
+//                         && (model.isResultFlag() == true)) ) { // если на дисплее 0 (первый запуск) ИЛИ операция != нулю И равна =
+//                        display.setText(button.getText());
+//                        model.setResultFlag(false);
                     } else {
                         display.setText(display.getText() + button.getText());
                     }
@@ -152,7 +158,7 @@ public class View extends JFrame { // класс - это окно
         JButton sqrtBtn = new JButton("sqrt");
         JButton degreeBtn = new JButton("^");
 
-        EngineerClickListeners engineerListener = new EngineerClickListeners(this);
+        EngineerClickListeners engineerListener = new EngineerClickListeners(model, this);
         sinBtn.addActionListener(engineerListener);
         cosBtn.addActionListener(engineerListener);
         tanBtn.addActionListener(engineerListener);
@@ -207,3 +213,5 @@ public class View extends JFrame { // класс - это окно
         return display;
     }
 }
+
+// удалить панель и вызвать перерисовку
