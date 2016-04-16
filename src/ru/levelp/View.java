@@ -65,16 +65,11 @@ public class View extends JFrame { // класс - это окно
                 public void actionPerformed(ActionEvent e) {
                     JButton button = (JButton) e.getSource();
 
-                    if ( ( (model.getOperation() != null) && (model.getOperation().equals("="))
-                         || (model.isResultFlag() == true)) ) {
+                    if ( ( (model.getOperation() == null) && (display.getText().equals("0")) ) ||
+                         ( (model.getOperation() != null) && (model.getOperation().equals("="))
+                         && (model.isResultFlag() == true)) ) { // если на дисплее 0 (первый запуск) ИЛИ операция != нулю И равна =
                         display.setText(button.getText());
                         model.setResultFlag(false);
-
-//                    if ( ( (model.getOperation() == null) && (display.getText().equals("0")) ) ||
-//                         ( (model.getOperation() != null) && (model.getOperation().equals("="))
-//                         && (model.isResultFlag() == true)) ) { // если на дисплее 0 (первый запуск) ИЛИ операция != нулю И равна =
-//                        display.setText(button.getText());
-//                        model.setResultFlag(false);
                     } else {
                         display.setText(display.getText() + button.getText());
                     }

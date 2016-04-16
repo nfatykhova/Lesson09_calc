@@ -18,10 +18,6 @@ public class EngineerClickListeners implements ActionListener {
         this.view = view;
     }
 
-  //  public EngineerClickListeners(View view) {
-//        this.view = view;
-//    }
-
     // sin, cos, tan, atan, ln, lg, log, x^2, sqrt, ^
 
     @Override

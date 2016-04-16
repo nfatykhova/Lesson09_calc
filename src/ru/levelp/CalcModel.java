@@ -16,7 +16,6 @@ public class CalcModel { // model - часть классов, отвечающ�
     public CalcModel() {
 
         operands = new Stack<>(); // инициализировать правильнее в конструкторе
-        resultFlag = true;
     }
 
     public void operate(String operand1, String operation) {
